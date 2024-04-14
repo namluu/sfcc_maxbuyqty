@@ -1,0 +1,21 @@
+{
+  "name": "nam_demo",
+  "version": "1.0.0",
+  "description": "SFRA Nam demo cartridge",
+  "main": "index.js",
+  "scripts": {
+    "compile:js": "sgmf-scripts --compile js",
+    "upload": "sgmf-scripts --upload",
+    "uploadCartridge": "sgmf-scripts --uploadCartridge sfra_demo",
+    "watch": "sgmf-scripts --watch",
+    "watch:static": "sgmf-scripts --watch static"
+  },
+  "author": "Nam Luu",
+  "license": "MIT",
+  "devDependencies": {
+    "sgmf-scripts": "^2.4.1"
+  },
+  "paths": {
+    "base": "../sfra/cartridges/app_storefront_base/"
+  }
+}
