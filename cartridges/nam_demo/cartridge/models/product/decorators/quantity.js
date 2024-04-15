@@ -1,15 +1,18 @@
 'use strict';
 
-//var Resource = require('dw/web/Resource');
-//var base = module.superModule;
 var DEFAULT_MAX_ORDER_QUANTITY = 9;
 
 module.exports = function (object, product, quantity) {
-    //base.call(this, object, product, quantity);
 
     var attributeModel = product.getAttributeModel();
     var attributeDefinition = attributeModel.getAttributeDefinition('maxQtyAll');
     var maxQtyAll = attributeModel.getValue(attributeDefinition);
+
+    var currentCustomer = customer;
+    if (currentCustomer && currentCustomer.authenticated) {
+        var attributeDefinition = attributeModel.getAttributeDefinition('maxQtyRegister');
+        var maxQtyAll = attributeModel.getValue(attributeDefinition);
+    }
 
     Object.defineProperty(object, 'selectedQuantity', {
         enumerable: true,
