@@ -4,14 +4,11 @@ var DEFAULT_MAX_ORDER_QUANTITY = 9;
 
 module.exports = function (object, product, quantity) {
 
-    var attributeModel = product.getAttributeModel();
-    var attributeDefinition = attributeModel.getAttributeDefinition('maxQtyAll');
-    var maxQtyAll = attributeModel.getValue(attributeDefinition);
+    var maxQtyAll = product.custom.maxQtyAll;
 
     var currentCustomer = customer;
     if (currentCustomer && currentCustomer.authenticated) {
-        var attributeDefinition = attributeModel.getAttributeDefinition('maxQtyRegister');
-        var maxQtyAll = attributeModel.getValue(attributeDefinition);
+        var maxQtyAll = product.custom.maxQtyRegister;
     }
 
     Object.defineProperty(object, 'selectedQuantity', {
