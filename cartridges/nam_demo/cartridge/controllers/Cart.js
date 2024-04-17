@@ -3,6 +3,8 @@
 var server = require('server');
 server.extend(module.superModule);
 
+var maxBuyHelder = require('*/cartridge/scripts/maxBuyQty/maxBuyQtyHelpers');
+
 server.replace('UpdateQuantity', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var Resource = require('dw/web/Resource');
@@ -76,10 +78,10 @@ server.replace('UpdateQuantity', function (req, res, next) {
         }
 
         // max qty limit
-        var maxQtyAll = matchingLineItem.product.custom.maxQtyAll;
-        if (totalQtyRequested > maxQtyAll) {
+        var maxQty = maxBuyHelder.getMaxBuyQty(matchingLineItem.product, customer);
+        if (totalQtyRequested > maxQty) {
             reachMaxQtyLimit = true;
-            updateQuantity = maxQtyAll;
+            updateQuantity = maxQty;
         }
     }
 
@@ -112,7 +114,7 @@ server.replace('UpdateQuantity', function (req, res, next) {
         if (reachMaxQtyLimit) {
             res.setStatusCode(500);
             res.json({
-                errorMessage: Resource.msgf('error.limit.product.quantity', 'cart', null, maxQtyAll)
+                errorMessage: Resource.msgf('error.limit.product.quantity', 'cart', null, maxQty)
             });
         }
     } else {

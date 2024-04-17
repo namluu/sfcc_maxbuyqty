@@ -1,15 +1,10 @@
 'use strict';
 
-var DEFAULT_MAX_ORDER_QUANTITY = 9;
+var maxBuyHelder = require('*/cartridge/scripts/maxBuyQty/maxBuyQtyHelpers');
 
 module.exports = function (object, product, quantity) {
 
-    var maxQtyAll = product.custom.maxQtyAll;
-
-    var currentCustomer = customer;
-    if (currentCustomer && currentCustomer.authenticated) {
-        var maxQtyAll = product.custom.maxQtyRegister;
-    }
+    var maxQty = maxBuyHelder.getMaxBuyQty(product, customer);
 
     Object.defineProperty(object, 'selectedQuantity', {
         enumerable: true,
@@ -21,6 +16,6 @@ module.exports = function (object, product, quantity) {
     });
     Object.defineProperty(object, 'maxOrderQuantity', {
         enumerable: true,
-        value: maxQtyAll || DEFAULT_MAX_ORDER_QUANTITY
+        value: maxQty
     });
 };
